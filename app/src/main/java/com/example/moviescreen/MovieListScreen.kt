@@ -29,9 +29,16 @@ fun MovieAppScreen() {
 
     var searchQuery by remember { mutableStateOf("") }
 
+    // Filter movies dynamically as the user types
+    val filteredMovies = remember(searchQuery, movies) {
+        movies.filter { movie ->
+            movie.title?.contains(searchQuery, ignoreCase = true) == true
+        }
+    }
+
     Scaffold(
-        modifier = Modifier.background(Color(0xFF1F1D2B)), // Full screen background
-        containerColor = Color(252836), // Ensures Scaffold background matches
+        modifier = Modifier.background(Color(0xFF1F1D2B)),
+        containerColor = Color(0xFF1F1D2B), // Fix incorrect color hex
         topBar = {
             TopAppBar(
                 title = {
@@ -41,19 +48,18 @@ fun MovieAppScreen() {
                             .padding(horizontal = 16.dp, vertical = 5.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Search Box
                         OutlinedTextField(
                             value = searchQuery,
                             onValueChange = { searchQuery = it },
                             placeholder = {
                                 Text(
                                     "Type title, categories, years, etc",
-                                    color = Color(0xFFA0A0A0)
+                                    color = Color(596082)
                                 )
                             },
                             modifier = Modifier
                                 .weight(1f)
-                                .height(50.dp), // Adjusted height
+                                .height(50.dp),
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedContainerColor = Color(0xFF1F1D2B),
                                 unfocusedContainerColor = Color(0xFF1F1D2B),
@@ -75,7 +81,7 @@ fun MovieAppScreen() {
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                             keyboardActions = KeyboardActions(
                                 onSearch = {
-                                    // Trigger search
+                                    // Keyboard hides after search
                                 }
                             ),
                             singleLine = true
@@ -95,14 +101,6 @@ fun MovieAppScreen() {
                 .fillMaxSize()
                 .background(Color(0xFF1F1D2B))
         ) {
-            val filteredMovies = if (searchQuery.isBlank()) {
-                movies
-            } else {
-                movies.filter { movie ->
-                    movie.title?.contains(searchQuery, ignoreCase = true) == true
-                }
-            }
-
             MovieList(filteredMovies)
         }
     }
@@ -110,14 +108,45 @@ fun MovieAppScreen() {
 
 @Composable
 fun MovieList(movies: List<Movie>) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF1F1D2B)),
-        contentPadding = PaddingValues(16.dp)
-    ) {
-        items(movies) { movie ->
-            MovieItem(movie)
+    if (movies.isEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFF1F1D2B))
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                // Add your image resource here
+                Image(
+                    painter = rememberAsyncImagePainter("https://www.figma.com/design/hePDosTHWo48l29bAmjWrA/Cinemax---Movie-Apps-UI-Kit-(Community)?node-id=127-1673&t=TcPhqx3vxa3NigtY-4"),
+                    contentDescription = "No Movies Found",
+                    modifier = Modifier.size(120.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "We Are Sorry, We Can Not Find The Movie :(",
+                    style = MaterialTheme.typography.titleMedium.copy(color = Color.White)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Find your movie by Type title, categories, years, etc",
+                    style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFA0A0A0))
+                )
+            }
+        }
+    } else {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFF1F1D2B)),
+            contentPadding = PaddingValues(16.dp)
+        ) {
+            items(movies) { movie ->
+                MovieItem(movie)
+            }
         }
     }
 }
