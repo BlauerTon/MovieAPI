@@ -51,17 +51,47 @@ fun MovieItem(movie: Movie) {
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Row(modifier = Modifier.padding(8.dp)) {
+            // Movie Poster
             Image(
                 painter = rememberAsyncImagePainter(movie.getPosterUrl()),
                 contentDescription = movie.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(100.dp)
+                    .size(120.dp)
                     .padding(end = 8.dp)
             )
-            Column {
-                Text(text = movie.title, style = MaterialTheme.typography.bodyLarge)
+
+            // Movie Details
+            Column(modifier = Modifier.weight(1f)) {
+                // Movie Title
+                Text(
+                    text = movie.title ?: "Unknown Title",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+
+                // Release Year
+                Text(
+                    text = "Year: ${movie.releaseDate?.take(4) ?: "Unknown"}",
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+
+                // Duration
+                Text(
+                    text = "Duration: ${movie.duration}",
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(bottom = 4.dp)
+                )
+
+                // Genre
+                Text(
+                    text = "Genre: ${movie.genre}",
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
         }
     }
 }
+
+

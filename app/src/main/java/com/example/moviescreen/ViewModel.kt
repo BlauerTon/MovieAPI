@@ -1,7 +1,5 @@
 package com.example.moviescreen
 
-
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +17,15 @@ class MovieViewModel : ViewModel() {
     private fun fetchMovies() {
         viewModelScope.launch {
             try {
-                val response = RetrofitClient.apiService.getPopularMovies()
-                _movies.value = response.movies
+                val popularMovies = RetrofitClient.apiService.getPopularMovies()
+                val moviesWithDetails = popularMovies.movies.map { movie ->
+                    val details = RetrofitClient.apiService.getMovieDetails(movie.id)
+                    movie.copy(
+                        duration = "${details.runtime ?: 0} Minutes",
+                        genre = details.genres?.joinToString(" | ") { it.name ?: "" } ?: "Unknown"
+                    )
+                }
+                _movies.value = moviesWithDetails
             } catch (e: Exception) {
                 e.printStackTrace()
             }
