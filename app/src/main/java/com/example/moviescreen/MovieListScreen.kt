@@ -10,6 +10,9 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.Theaters
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -38,7 +41,7 @@ fun MovieAppScreen() {
 
     Scaffold(
         modifier = Modifier.background(Color(0xFF1F1D2B)),
-        containerColor = Color(0xFF1F1D2B), // Fix incorrect color hex
+        containerColor = Color(0xFF1F1D2B),
         topBar = {
             TopAppBar(
                 title = {
@@ -54,7 +57,7 @@ fun MovieAppScreen() {
                             placeholder = {
                                 Text(
                                     "Type title, categories, years, etc",
-                                    color = Color(596082)
+                                    color = Color(0xFFA0A0A0)
                                 )
                             },
                             modifier = Modifier
@@ -119,7 +122,6 @@ fun MovieList(movies: List<Movie>) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Add your image resource here
                 Image(
                     painter = rememberAsyncImagePainter("https://www.figma.com/design/hePDosTHWo48l29bAmjWrA/Cinemax---Movie-Apps-UI-Kit-(Community)?node-id=127-1673&t=TcPhqx3vxa3NigtY-4"),
                     contentDescription = "No Movies Found",
@@ -180,22 +182,49 @@ fun MovieItem(movie: Movie) {
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
 
-                Text(
-                    text = "Year: ${movie.releaseDate?.take(4) ?: "Unknown"}",
-                    style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFA0A0A0)),
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = "Year",
+                        tint = Color(0xFFA0A0A0),
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Year: ${movie.releaseDate?.take(4) ?: "Unknown"}",
+                        style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFA0A0A0)),
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+                }
 
-                Text(
-                    text = "Duration: ${movie.duration}",
-                    style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFA0A0A0)),
-                    modifier = Modifier.padding(bottom = 4.dp)
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.Schedule,
+                        contentDescription = "Duration",
+                        tint = Color(0xFFA0A0A0),
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Duration: ${movie.duration}",
+                        style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFA0A0A0)),
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+                }
 
-                Text(
-                    text = "Genre: ${movie.genre}",
-                    style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFA0A0A0))
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        imageVector = Icons.Default.Theaters,
+                        contentDescription = "Genre",
+                        tint = Color(0xFFA0A0A0),
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Genre: ${movie.genre}",
+                        style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFA0A0A0))
+                    )
+                }
             }
         }
     }
