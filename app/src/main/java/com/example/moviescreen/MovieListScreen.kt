@@ -51,44 +51,50 @@ fun MovieAppScreen() {
                             .padding(horizontal = 16.dp, vertical = 5.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        OutlinedTextField(
-                            value = searchQuery,
-                            onValueChange = { searchQuery = it },
-                            placeholder = {
-                                Text(
-                                    "Type title, categories, years, etc",
-                                    color = Color(0xFFA0A0A0)
-                                )
-                            },
+                        Box(
                             modifier = Modifier
+                                .background(Color(0xFF252836), shape = RoundedCornerShape(24.dp))
                                 .weight(1f)
-                                .height(50.dp),
-                            colors = OutlinedTextFieldDefaults.colors(
-                                focusedContainerColor = Color(0xFF1F1D2B),
-                                unfocusedContainerColor = Color(0xFF1F1D2B),
-                                focusedBorderColor = Color.Transparent,
-                                unfocusedBorderColor = Color.Transparent
-                            ),
-                            shape = RoundedCornerShape(24.dp),
-                            textStyle = MaterialTheme.typography.bodyMedium.copy(
-                                color = Color.White
-                            ),
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Search,
-                                    contentDescription = "Search",
-                                    tint = Color(0xFFA0A0A0),
-                                    modifier = Modifier.size(20.dp)
-                                )
-                            },
-                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
-                            keyboardActions = KeyboardActions(
-                                onSearch = {
-                                    // Keyboard hides after search
-                                }
-                            ),
-                            singleLine = true
-                        )
+                        ) {
+                            OutlinedTextField(
+                                value = searchQuery,
+                                onValueChange = { searchQuery = it },
+                                placeholder = {
+                                    Text(
+                                        "Type title, categories, years, etc",
+                                        color = Color(0xFFA0A0A0)
+                                    )
+                                },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(50.dp),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedContainerColor = Color.Transparent,
+                                    unfocusedContainerColor = Color.Transparent,
+                                    focusedBorderColor = Color.Transparent,
+                                    unfocusedBorderColor = Color.Transparent
+                                ),
+                                shape = RoundedCornerShape(24.dp),
+                                textStyle = MaterialTheme.typography.bodyMedium.copy(
+                                    color = Color.White
+                                ),
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Search,
+                                        contentDescription = "Search",
+                                        tint = Color(0xFFA0A0A0),
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                },
+                                keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+                                keyboardActions = KeyboardActions(
+                                    onSearch = {
+                                        // Keyboard hides after search
+                                    }
+                                ),
+                                singleLine = true
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -160,7 +166,7 @@ fun MovieItem(movie: Movie) {
             .fillMaxWidth()
             .padding(8.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(0xFF292639)
+            containerColor = Color(0xFF252836)
         ),
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
