@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    //alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -41,6 +40,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.3"
+    }
 }
 
 dependencies {
@@ -53,17 +56,18 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.compose.material.icons)
+    implementation(libs.coil.compose)
 
-//    // Retrofit dependencies
-//    implementation(libs.retrofit)
-//    implementation(libs.retrofit.converter.gson)
-//
-//    // OkHttp logging interceptor
-//    implementation(libs.okhttp.logging)
-//
-//    // Moshi dependencies
-//    implementation(libs.retrofit.moshi)
-//    implementation(libs.moshi.kotlin)
+    // Retrofit dependencies
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converter.gson)
+
+    // OkHttp logging interceptor
+    implementation(libs.okhttp.logging)
+
+    // Moshi dependencies
+    implementation(libs.retrofit.moshi)
+    implementation(libs.moshi.kotlin)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -72,4 +76,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Compose dependencies
+    implementation("androidx.compose.ui:ui:1.5.4")
+    implementation("androidx.compose.material3:material3:1.1.2")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
+    implementation("androidx.activity:activity-compose:1.8.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
+    // Coil for image loading
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
 }
