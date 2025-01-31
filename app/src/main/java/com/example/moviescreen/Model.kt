@@ -13,7 +13,8 @@ data class Movie(
     @SerializedName("vote_average") val rating: Double,
     @SerializedName("poster_path") val posterPath: String,
     @SerializedName("duration") val duration: String,
-    @SerializedName("genre") val genre: String
+    @SerializedName("genre") val genre: String,
+    @SerializedName("overview") val description: String?
 ) {
     fun getPosterUrl(): String {
         return "https://image.tmdb.org/t/p/w500$posterPath"

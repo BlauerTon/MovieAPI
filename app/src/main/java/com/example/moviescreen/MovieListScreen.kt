@@ -2,6 +2,7 @@ package com.example.moviescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -10,9 +11,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material.icons.filled.Theaters
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -22,11 +20,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.Theaters
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MovieAppScreen() {
+fun MovieListScreen(navController: NavController) {
     val movieViewModel: MovieViewModel = viewModel()
     val movies by movieViewModel.movies.collectAsState()
 
@@ -35,7 +37,7 @@ fun MovieAppScreen() {
     // Filter movies dynamically as the user types
     val filteredMovies = remember(searchQuery, movies) {
         movies.filter { movie ->
-            movie.title?.contains(searchQuery, ignoreCase = true) == true
+            movie.title.contains(searchQuery, ignoreCase = true)
         }
     }
 
@@ -110,13 +112,15 @@ fun MovieAppScreen() {
                 .fillMaxSize()
                 .background(Color(0xFF1F1D2B))
         ) {
-            MovieList(filteredMovies)
+            MovieList(filteredMovies) { movie ->
+                navController.navigate("movieDetail/${movie.id}")
+            }
         }
     }
 }
 
 @Composable
-fun MovieList(movies: List<Movie>) {
+fun MovieList(movies: List<Movie>, onClick: (Movie) -> Unit) {
     if (movies.isEmpty()) {
         Box(
             modifier = Modifier
@@ -153,18 +157,19 @@ fun MovieList(movies: List<Movie>) {
             contentPadding = PaddingValues(16.dp)
         ) {
             items(movies) { movie ->
-                MovieItem(movie)
+                MovieItem(movie = movie, onClick = onClick)
             }
         }
     }
 }
 
 @Composable
-fun MovieItem(movie: Movie) {
+fun MovieItem(movie: Movie, onClick: (Movie) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { onClick(movie) },
         colors = CardDefaults.cardColors(
             containerColor = Color(0xFF252836)
         ),
@@ -183,7 +188,7 @@ fun MovieItem(movie: Movie) {
 
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = movie.title ?: "Unknown Title",
+                    text = movie.title,
                     style = MaterialTheme.typography.titleMedium.copy(color = Color.White),
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
@@ -197,7 +202,7 @@ fun MovieItem(movie: Movie) {
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "Year: ${movie.releaseDate?.take(4) ?: "Unknown"}",
+                        text = "Year: ${movie.releaseDate.take(4)}",
                         style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFA0A0A0)),
                         modifier = Modifier.padding(bottom = 4.dp)
                     )
