@@ -13,5 +13,10 @@ class MainActivity : ComponentActivity() {
             MovieAppScreen()
         }
     }
+
+    // Go back to the previous screen
+//    fun goBack() {
+//        navController.popBackStack()
+//    }
 }
 
