@@ -5,10 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material.icons.filled.Theaters
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -17,7 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
@@ -44,7 +43,7 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
                             tint = Color.White
                         )
@@ -66,68 +65,99 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    // Movie Poster
                     Image(
                         painter = rememberAsyncImagePainter(movie.getPosterUrl()),
                         contentDescription = movie.title,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .size(200.dp)
+                            .fillMaxWidth()
+                            .height(300.dp)
                             .padding(bottom = 16.dp)
                     )
 
+                    // Movie Title
                     Text(
                         text = movie.title,
-                        style = MaterialTheme.typography.titleLarge.copy(color = Color.White),
+                        style = MaterialTheme.typography.titleLarge.copy(
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 24.sp
+                        ),
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.DateRange,
-                            contentDescription = "Year",
-                            tint = Color(0xFFA0A0A0),
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
+                    // Movie Details (Year, Duration, Genre)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
                         Text(
-                            text = "Year: ${movie.releaseDate.take(4)}",
+                            text = "2021",
                             style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFFA0A0A0)),
-                            modifier = Modifier.padding(bottom = 8.dp)
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text(
+                            text = "•",
+                            style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFFA0A0A0)),
+                            modifier = Modifier.padding(horizontal = 8.dp)
+                        )
+                        Text(
+                            text = movie.duration,
+                            style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFFA0A0A0)),
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text(
+                            text = "•",
+                            style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFFA0A0A0)),
+                            modifier = Modifier.padding(horizontal = 8.dp)
+                        )
+                        Text(
+                            text = movie.genre,
+                            style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFFA0A0A0))
                         )
                     }
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.Schedule,
-                            contentDescription = "Duration",
-                            tint = Color(0xFFA0A0A0),
-                            modifier = Modifier.size(16.dp)
+                    // Play Button
+                    Button(
+                        onClick = {
+                            // Handle play button click
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp)
+                            .padding(horizontal = 32.dp, vertical = 16.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF12CDD9)
                         )
-                        Spacer(modifier = Modifier.width(4.dp))
+                    ) {
                         Text(
-                            text = "Duration: ${movie.duration}",
-                            style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFFA0A0A0)),
-                            modifier = Modifier.padding(bottom = 8.dp)
+                            text = "Play",
+                            style = MaterialTheme.typography.bodyLarge.copy(
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
                         )
                     }
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.Theaters,
-                            contentDescription = "Genre",
-                            tint = Color(0xFFA0A0A0),
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = "Genre: ${movie.genre}",
-                            style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFFA0A0A0)),
-                            modifier = Modifier.padding(bottom = 8.dp)
-                        )
-                    }
+                    // Storyline
+                    Text(
+                        text = "Story Line",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 16.dp)
+                    )
 
                     Text(
-                        text = "Description: ${movie.description ?: "No description available."}",
+                        text = movie.description ?: "No description available.",
                         style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFFA0A0A0)),
                         modifier = Modifier.padding(bottom = 8.dp)
                     )
