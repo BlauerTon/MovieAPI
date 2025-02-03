@@ -47,15 +47,16 @@ A modern Kotlin Android app built with Jetpack Compose that allows users to brow
 
 ### Steps
 * Clone the Repository:
-  
+  ```  
     git clone https://github.com/BlauerTon/MovieAPI.git
+    cd MovieAPI
 
 * Add Your API Key:
 
     Open the RetrofitClient.kt file.
 
     Replace the placeholder API_KEY with your TMDb API key:
-
+    ```
     const val API_KEY = "your_api_key_here"
 
 * Run the App:
