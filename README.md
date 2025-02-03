@@ -1,111 +1,92 @@
-#Movie App
+# Movie App
 
 A modern Kotlin Android app built with Jetpack Compose that allows users to browse a list of popular movies and view detailed information about each movie. The app fetches data from The Movie Database (TMDb) API and displays it in a clean and intuitive user interface.
 
-Features
-Movie List: Displays a list of popular movies with their posters, titles, release years, durations, and genres.
+## Features
+* Movie List: Displays a list of popular movies with their posters, titles, release years, durations, and genres.
 
-Search Functionality: Allows users to search for movies by title, genre, or year.
+* Search Functionality: Allows users to search for movies by title, genre, or year.
 
-Movie Details: Displays detailed information about a selected movie, including its poster, title, release year, duration, genre, and storyline.
+* Movie Details: Displays detailed information about a selected movie, including its poster, title, release year, duration, genre, and storyline.
 
-Play, Download, and Share: Provides buttons to play, download, and share the movie.
+* Play, Download, and Share: Provides buttons to play, download, and share the movie.
 
-Responsive UI: Built with Jetpack Compose for a modern and responsive user interface.
+* Responsive UI: Built with Jetpack Compose for a modern and responsive user interface.
 
-Screenshots
-Movie List Screen
-Movie Details Screen
+## Screenshots
+### Movie List Screen
+<img src="https://github.com/user-attachments/assets/c49c3a02-0aef-4fec-a09a-217516e20219" alt="Movie List Screen Image" width="300" height="600">
 
-Technologies Used
-Jetpack Compose: For building the UI.
+### Movie Details Screen
+<img src="https://github.com/user-attachments/assets/665ae3ed-92c8-4134-82dc-60c7fbb2a681" alt="Movie Details Screen Image" width="300" height="600">
 
-Retrofit: For making API calls to TMDb.
+### Error Screen
+<img src="https://github.com/user-attachments/assets/18228f6c-9b92-4b90-89a7-66159cffbd4d" alt="Movie Details Screen Image" width="300" height="600">
 
-Coil: For loading and displaying images.
 
-Kotlin Coroutines: For asynchronous programming.
+## Technologies Used
 
-ViewModel: For managing UI-related data.
+* Jetpack Compose: For building the UI.
 
-Navigation Compose: For handling navigation between screens.
+* Retrofit: For making API calls to TMDb.
 
-Setup
-Prerequisites
-Android Studio (latest version recommended).
+* Coil: For loading and displaying images.
 
-An API key from The Movie Database (TMDb).
+* Kotlin Coroutines: For asynchronous programming.
 
-Steps
-Clone the Repository:
+* ViewModel: For managing UI-related data.
 
-bash
-Copy
-git clone https://github.com/your-username/movie-app.git
-Add Your API Key:
+* Navigation Compose: For handling navigation between screens.
 
-Open the RetrofitClient.kt file.
+## Setup
+### Prerequisites
 
-Replace the placeholder API_KEY with your TMDb API key:
+* Android Studio (latest version recommended).
 
-kotlin
-Copy
-const val API_KEY = "your_api_key_here"
-Run the App:
+* An API key from The Movie Database (TMDb).
 
-Open the project in Android Studio.
+### Steps
+* Clone the Repository:
+  
+    git clone https://github.com/BlauerTon/MovieAPI.git
 
-Connect an Android device or emulator.
+* Add Your API Key:
 
-Click the "Run" button in Android Studio to build and run the app.
+    Open the RetrofitClient.kt file.
 
-Project Structure
-Copy
-movie-app/
-├── app/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/com/example/moviescreen/
-│   │   │   │   ├── MainActivity.kt
-│   │   │   │   ├── MovieListScreen.kt
-│   │   │   │   ├── MovieDetails.kt
-│   │   │   │   ├── MovieViewModel.kt
-│   │   │   │   ├── RetrofitClient.kt
-│   │   │   │   ├── TMDBApiService.kt
-│   │   │   │   ├── models/
-│   │   │   │   │   ├── Movie.kt
-│   │   │   │   │   ├── MovieResponse.kt
-│   │   │   │   │   ├── MovieDetailsResponse.kt
-│   │   │   │   │   ├── Genre.kt
-│   │   │   ├── res/
-│   │   │   │   ├── drawable/
-│   │   │   │   ├── layout/
-│   │   │   │   ├── values/
-│   ├── build.gradle
-├── build.gradle
-├── settings.gradle
-├── README.md
-API Reference
+    Replace the placeholder API_KEY with your TMDb API key:
+
+    const val API_KEY = "your_api_key_here"
+
+* Run the App:
+
+    Open the project in Android Studio.
+
+    Connect an Android device or emulator.
+
+    Click the "Run" button in Android Studio to build and run the app.
+
+## API Reference
 This app uses the TMDb API to fetch movie data. You can find more information about the API endpoints and parameters in the official documentation.
 
-Contributing
+## Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
 
-Fork the repository.
+### Fork the repository.
 
-Create a new branch (git checkout -b feature/your-feature).
+* Create a new branch (git checkout -b feature/your-feature).
 
-Commit your changes (git commit -m 'Add some feature').
+* Commit your changes (git commit -m 'Add some feature').
 
-Push to the branch (git push origin feature/your-feature).
+* Push to the branch (git push origin feature/your-feature).
 
-Open a pull request.
+* Open a pull request.
 
-License
+## License
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-Acknowledgments
-The Movie Database (TMDb) for providing the movie data.
+## Acknowledgments
+* The Movie Database (TMDb) for providing the movie data.
 
-Jetpack Compose for making UI development easier and more fun.
+* Jetpack Compose for making UI development easier and more fun.
 
