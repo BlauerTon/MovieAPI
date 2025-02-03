@@ -1,4 +1,4 @@
-**Movie App**
+#Movie App
 
 A modern Kotlin Android app built with Jetpack Compose that allows users to browse a list of popular movies and view detailed information about each movie. The app fetches data from The Movie Database (TMDb) API and displays it in a clean and intuitive user interface.
 
