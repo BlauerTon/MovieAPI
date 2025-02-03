@@ -1,4 +1,4 @@
-package com.example.moviescreen
+package com.example.moviescreen.com.example.moviescreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.moviescreen.MovieViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -181,9 +182,9 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                                 modifier = Modifier
                                     .width(115.dp)
                                     .height(48.dp),
-                                shape = RoundedCornerShape(24.dp), // More rounded corners
+                                shape = RoundedCornerShape(24.dp),
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = Color(0xFFFF8700) // Orange color
+                                    containerColor = Color(0xFFFF8700)
                                 )
                             ) {
                                 Icon(
