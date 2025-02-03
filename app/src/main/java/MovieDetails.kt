@@ -90,7 +90,6 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                             .padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        // Movie Poster (205x287 px)
                         Image(
                             painter = rememberAsyncImagePainter(movie.getPosterUrl()),
                             contentDescription = movie.title,
@@ -101,7 +100,6 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                                 .padding(bottom = 16.dp)
                         )
 
-                        // Movie Title (Centered and slightly lower)
                         Text(
                             text = movie.title,
                             style = MaterialTheme.typography.titleLarge.copy(
@@ -112,7 +110,6 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                             modifier = Modifier.padding(top = 16.dp, bottom = 8.dp)
                         )
 
-                        // Movie Details (Year, Duration, Genre with Icons)
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -120,7 +117,6 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            // Year
                             Icon(
                                 imageVector = Icons.Default.DateRange,
                                 contentDescription = "Year",
@@ -134,14 +130,12 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                                 modifier = Modifier.padding(end = 8.dp)
                             )
 
-                            // Separator
                             Text(
                                 text = "•",
                                 style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFFA0A0A0)),
                                 modifier = Modifier.padding(horizontal = 8.dp)
                             )
 
-                            // Duration
                             Icon(
                                 imageVector = Icons.Default.Schedule,
                                 contentDescription = "Duration",
@@ -155,14 +149,12 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                                 modifier = Modifier.padding(end = 8.dp)
                             )
 
-                            // Separator
                             Text(
                                 text = "•",
                                 style = MaterialTheme.typography.bodyMedium.copy(color = Color(0xFFA0A0A0)),
                                 modifier = Modifier.padding(horizontal = 8.dp)
                             )
 
-                            // Genre
                             Icon(
                                 imageVector = Icons.Default.Theaters,
                                 contentDescription = "Genre",
@@ -176,7 +168,6 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                             )
                         }
 
-                        // Play, Download, and Share Buttons
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -184,10 +175,8 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            // Play Button
                             Button(
                                 onClick = {
-                                    // Handle play button click
                                 },
                                 modifier = Modifier
                                     .width(115.dp)
@@ -214,7 +203,6 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
 
                             Spacer(modifier = Modifier.width(16.dp))
 
-                            // Download Icon (48x48 px)
                             IconButton(
                                 onClick = {
                                     // Handle download button click
@@ -229,7 +217,6 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                                 )
                             }
 
-                            // Share Icon (48x48 px)
                             IconButton(
                                 onClick = {
                                     // Handle share button click
@@ -245,7 +232,6 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                             }
                         }
 
-                        // Storyline
                         Text(
                             text = "Story Line",
                             style = MaterialTheme.typography.titleMedium.copy(
@@ -265,7 +251,6 @@ fun MovieDetailsScreen(navController: NavController, movieId: String?) {
                         )
                     }
                 } else {
-                    // Show "Movie not found" only if the movie is not found after loading
                     Text(
                         text = "Movie not found",
                         style = MaterialTheme.typography.titleMedium.copy(color = Color.White),

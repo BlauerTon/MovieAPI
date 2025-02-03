@@ -14,14 +14,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MovieScreenTheme {
-                // Set up the NavController
-                val navController = rememberNavController()
+     val navController = rememberNavController()
 
-                // Define the navigation graph
-                NavHost(
-                    navController = navController,
-                    startDestination = "movieList"
-                ) {
+                    // navigation graph
+                    NavHost(
+                        navController = navController,
+                        startDestination = "movieList"
+                    ) {
                     // MovieListScreen route
                     composable("movieList") {
                         MovieListScreen(navController = navController)
