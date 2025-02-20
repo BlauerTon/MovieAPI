@@ -77,9 +77,9 @@ fun OnboardingScreen() {
                 inactiveColor = Color.Gray
             )
 
-            Spacer(modifier = Modifier.weight(1f)) // Pushes the button to the right
+            Spacer(modifier = Modifier.weight(1f))
 
-            // Next Button (Right Side)
+            // Next Button
             Box(
                 modifier = Modifier
                     .size(56.dp)
@@ -114,6 +114,7 @@ fun OnboardingPage(imageRes: Int, title: String, description: String) {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Spacer(modifier = Modifier.height(70.dp))
         Image(
             painter = painterResource(id = imageRes),
             contentDescription = null,
@@ -124,7 +125,7 @@ fun OnboardingPage(imageRes: Int, title: String, description: String) {
         Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = title,
-            fontSize = 20.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
