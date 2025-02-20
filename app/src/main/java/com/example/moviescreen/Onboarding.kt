@@ -8,12 +8,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
-// import androidx.compose.foundation.pager.HorizontalPagerIndicator
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -26,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.HorizontalPagerIndicator
-// import com.google.accompanist.pager.HorizontalPagerIndicator
 import kotlinx.coroutines.launch
 
 class Onboarding : ComponentActivity() {
@@ -42,7 +39,6 @@ class Onboarding : ComponentActivity() {
 fun OnboardingScreen() {
     val pagerState = rememberPagerState { 3 } // 3 pages
     val scope = rememberCoroutineScope()
-
 
     Column(
         modifier = Modifier
@@ -67,43 +63,48 @@ fun OnboardingScreen() {
             )
         }
 
-        // Dot Indicators
-        HorizontalPagerIndicator(
-            pageCount = 3,
-            pagerState = pagerState,
+        Row(
             modifier = Modifier
-                .padding(bottom = 24.dp)
-                .align(Alignment.CenterHorizontally),
-            activeColor = Color(0xFF00E8E8), // Light blue
-            inactiveColor = Color.Gray
-        )
-
-
-        // Next Button
-        Box(
-            modifier = Modifier
-                .size(56.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .background(Color(0xFF00E8E8)) // Light blue color
-                .padding(12.dp)
-                .align(Alignment.CenterHorizontally)
-                .clickable {
-                    scope.launch {
-                        if (pagerState.currentPage < 2) {
-                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                        }
-                    }
-                },
-            contentAlignment = Alignment.Center
+                .fillMaxWidth()
+                .padding(bottom = 24.dp, start = 24.dp, end = 24.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = "Next",
-                tint = Color.Black
+            // Dot Indicators (Left Side)
+            HorizontalPagerIndicator(
+                pageCount = 3,
+                pagerState = pagerState,
+                activeColor = Color(0xFF00E8E8),
+                inactiveColor = Color.Gray
             )
-        }
 
-        Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.weight(1f)) // Pushes the button to the right
+
+            // Next Button (Right Side)
+            Box(
+                modifier = Modifier
+                    .size(56.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(Color(0xFF00E8E8))
+                    .padding(12.dp)
+                    .clickable {
+                        scope.launch {
+                            val nextPage = pagerState.currentPage + 1
+                            if (nextPage < 3) {
+                                pagerState.animateScrollToPage(nextPage)
+                            } else {
+                                // Perform any action on last page (e.g., navigate to home screen)
+                            }
+                        }
+                    },
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                    contentDescription = "Next",
+                    tint = Color.Black
+                )
+            }
+        }
     }
 }
 
