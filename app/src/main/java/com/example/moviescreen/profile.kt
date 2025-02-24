@@ -1,8 +1,17 @@
 package com.example.moviescreen
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Language
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Security
+import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,10 +26,15 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ProfileScreen() {
+    val backgroundColor = Color(0xFF1F1D2B)
+    val cardColor = Color(0xFF252836)
+    val textColor = Color.White
+    val iconColor = Color(0xFF12CDD9)
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(backgroundColor)
             .padding(16.dp)
     ) {
         // Profile Header
@@ -40,7 +54,8 @@ fun ProfileScreen() {
                 Text(
                     text = "Tiffany",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = textColor
                 )
                 Text(
                     text = "Tiffanylearsey@gmail.com",
@@ -55,7 +70,7 @@ fun ProfileScreen() {
         // Premium Member Section
         Card(
             modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+            colors = CardDefaults.cardColors(containerColor = cardColor)
         ) {
             Column(
                 modifier = Modifier.padding(16.dp)
@@ -63,20 +78,22 @@ fun ProfileScreen() {
                 Text(
                     text = "Premium Member",
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = textColor
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "New movies are coming for you.",
                     fontSize = 14.sp,
-                    color = Color.DarkGray
+                    color = Color.Gray
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
                     onClick = { /* Handle download action */ },
-                    modifier = Modifier.align(Alignment.End)
+                    modifier = Modifier.align(Alignment.End),
+                    colors = ButtonDefaults.buttonColors(containerColor = iconColor)
                 ) {
-                    Text(text = "Download Now!")
+                    Text(text = "Download Now!", color = textColor)
                 }
             }
         }
@@ -88,10 +105,11 @@ fun ProfileScreen() {
             text = "Account",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
+            color = textColor,
             modifier = Modifier.padding(bottom = 8.dp)
         )
-        ProfileMenuItem("Member")
-        ProfileMenuItem("Change Password")
+        ProfileMenuItem(icon = Icons.Default.Person, text = "Member")
+        ProfileMenuItem(icon = Icons.Default.Security, text = "Change Password")
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -100,24 +118,44 @@ fun ProfileScreen() {
             text = "General",
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
+            color = textColor,
             modifier = Modifier.padding(bottom = 8.dp)
         )
-        ProfileMenuItem("Notification")
-        ProfileMenuItem("Language")
-        ProfileMenuItem("Country")
-        ProfileMenuItem("Clear Cache")
+        ProfileMenuItem(icon = Icons.Default.Notifications, text = "Notification")
+        ProfileMenuItem(icon = Icons.Default.Language, text = "Language")
+        ProfileMenuItem(icon = Icons.Default.LocationOn, text = "Country")
+        ProfileMenuItem(icon = Icons.Default.Storage, text = "Clear Cache")
     }
 }
 
 @Composable
-fun ProfileMenuItem(text: String) {
-    Text(
-        text = text,
-        fontSize = 16.sp,
+fun ProfileMenuItem(icon: androidx.compose.ui.graphics.vector.ImageVector, text: String) {
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
-    )
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = Color(0xFF12CDD9),
+            modifier = Modifier.size(24.dp)
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(
+            text = text,
+            fontSize = 16.sp,
+            color = Color.White,
+            modifier = Modifier.weight(1f)
+        )
+        Icon(
+            imageVector = Icons.Default.ArrowForward,
+            contentDescription = null,
+            tint = Color.Gray,
+            modifier = Modifier.size(20.dp)
+        )
+    }
 }
 
 @Preview(showBackground = true)
