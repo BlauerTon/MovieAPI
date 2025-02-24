@@ -115,7 +115,7 @@ fun MovieListScreen(navController: NavController) {
         bottomBar = {
             BottomNavigation(
                 modifier = Modifier.background(Color(0xFF252836)),
-                // containerColor = Color(0xFF252836),
+                backgroundColor = Color(0xFF252836),
                 contentColor = Color.White
             ) {
                 BottomNavigationItem(
