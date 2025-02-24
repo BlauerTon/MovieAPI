@@ -125,6 +125,45 @@ fun ProfileScreen() {
         ProfileMenuItem(icon = Icons.Default.Language, text = "Language")
         ProfileMenuItem(icon = Icons.Default.LocationOn, text = "Country")
         ProfileMenuItem(icon = Icons.Default.Storage, text = "Clear Cache")
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Legal and Policies
+        Text(
+            text = "Legal and Policies",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = textColor,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        ProfileMenuItem(icon = Icons.Default.Storage, text = "Privacy Policy")
+        ProfileMenuItem(icon = Icons.Default.Storage, text = "Terms of Service")
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Help & Feedback
+        Text(
+            text = "Help & Feedback",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = textColor,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        ProfileMenuItem(icon = Icons.Default.Notifications, text = "Help Center")
+        ProfileMenuItem(icon = Icons.Default.Language, text = "Send Feedback")
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // About Us
+        Text(
+            text = "About Us",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = textColor,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+        ProfileMenuItem(icon = Icons.Default.Person, text = "About Company")
+        ProfileMenuItem(icon = Icons.Default.LocationOn, text = "Contact Us")
     }
 }
 
