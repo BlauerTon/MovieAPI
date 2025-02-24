@@ -29,6 +29,7 @@ import androidx. compose. material. icons. filled. *
 import androidx. compose. material. BottomNavigation
 import androidx. compose. material. BottomNavigationItem
 import androidx. compose. material3.AlertDialogDefaults. containerColor
+import androidx. compose. ui. text. style. TextOverflow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -113,36 +114,25 @@ fun MovieListScreen(navController: NavController) {
             )
         },
         bottomBar = {
-            BottomNavigation(
-                modifier = Modifier.background(Color(0xFF252836)),
-                backgroundColor = Color(0xFF252836),
-                contentColor = Color.White
-            ) {
-                BottomNavigationItem(
-                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-                    label = { Text("Home") },
-                    selected = selectedTab == 0,
-                    onClick = { selectedTab = 0 }
-                )
-                BottomNavigationItem(
-                    icon = { Icon(Icons.Default.Search, contentDescription = "Search") },
-                    label = { Text("Search") },
-                    selected = selectedTab == 1,
-                    onClick = { selectedTab = 1 }
-                )
-                BottomNavigationItem(
-                    icon = { Icon(Icons.Default.Favorite, contentDescription = "Favorites") },
-                    label = { Text("Favorites") },
-                    selected = selectedTab == 2,
-                    onClick = { selectedTab = 2 }
-                )
-                BottomNavigationItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-                    label = { Text("Profile") },
-                    selected = selectedTab == 3,
-                    onClick = { selectedTab = 3 }
-                )
+            Scaffold(
+                bottomBar = {
+                    CustomBottomNavigation(selectedTab = selectedTab) { index ->
+                        selectedTab = index
+                    }
+                }
+            ) { paddingValues ->
+                Box(
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .fillMaxSize()
+                        .background(Color(0xFF1F1D2B))
+                ) {
+                    MovieList(filteredMovies) { movie ->
+                        navController.navigate("movieDetail/${movie.id}")
+                    }
+                }
             }
+
         }
     ) { paddingValues ->
         Box(
@@ -279,3 +269,64 @@ fun MovieItem(movie: Movie, onClick: (Movie) -> Unit) {
         }
     }
 }
+
+@Composable
+fun CustomBottomNavigation(selectedTab: Int, onTabSelected: (Int) -> Unit) {
+    NavigationBar(
+        containerColor = Color(0xFF16141F),
+        tonalElevation = 0.dp
+    ) {
+        val items = listOf(
+            Icons.Default.Home to "Home",
+            Icons.Default.Search to "Search",
+            Icons.Default.Download to "Downloads",
+            Icons.Default.Person to "Profile"
+        )
+
+        items.forEachIndexed { index, (icon, label) ->
+            val isSelected = selectedTab == index
+
+            NavigationBarItem(
+                selected = isSelected,
+                onClick = { onTabSelected(index) },
+                icon = {
+                    Box(
+                        modifier = Modifier
+                            .background(
+                                if (isSelected) Color(0xFF1E1C2A) else Color.Transparent,
+                                shape = RoundedCornerShape(20.dp)
+                            )
+                            .padding(horizontal = 12.dp, vertical = 8.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.wrapContentWidth()
+                        ) {
+                            Icon(
+                                imageVector = icon,
+                                contentDescription = label,
+                                tint = if (isSelected) Color(0xFF00D8FF) else Color(0xFF6D6C75),
+                                modifier = Modifier.size(24.dp)
+                            )
+                            if (isSelected) {
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = label,
+                                    color = Color(0xFF00D8FF),
+                                    style = MaterialTheme.typography.labelMedium,
+                                    maxLines = 1
+                                )
+                            }
+                        }
+                    }
+                },
+                label = { Text("") },
+                colors = NavigationBarItemDefaults.colors(
+                    indicatorColor = Color.Transparent
+                )
+            )
+        }
+    }
+}
+
+
