@@ -24,19 +24,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx. navigation. compose. rememberNavController
 import kotlinx.coroutines.launch
 
 class Onboarding : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            OnboardingScreen()
+            val navController = rememberNavController()
+            OnboardingScreen(navController = navController)
         }
     }
 }
 
 @Composable
-fun OnboardingScreen() {
+fun OnboardingScreen(navController: NavController) {
     val pagerState = rememberPagerState { 3 }
     val scope = rememberCoroutineScope()
 
@@ -47,7 +50,8 @@ fun OnboardingScreen() {
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.weight(1f)
@@ -72,19 +76,24 @@ fun OnboardingScreen() {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             PageIndicator(pagerState.currentPage)
+
             NextButton(pagerState.currentPage) {
                 scope.launch {
                     val nextPage = pagerState.currentPage + 1
                     if (nextPage < 3) {
                         pagerState.animateScrollToPage(nextPage)
                     } else {
-                        // Navigate to home screen
+                        // Navigate to MovieListScreen after last onboarding screen
+                        navController.navigate("HomeScreen") {
+                            popUpTo("onboarding") { inclusive = true }
+                        }
                     }
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun PageIndicator(currentPage: Int) {
@@ -108,30 +117,38 @@ fun PageIndicator(currentPage: Int) {
 @Composable
 fun NextButton(currentPage: Int, onClick: () -> Unit) {
     Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
             .size(64.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(Color(0xFF00E8E8))
-            .clickable { onClick() },
-        contentAlignment = Alignment.Center
     ) {
-        // Segments around the button
+        // Segment indicator around the button
         repeat(3) { segment ->
             if (segment <= currentPage) {
                 Box(
                     modifier = Modifier
-                        .size(150.dp )
+                        .size(100.dp + (segment * 20).dp)
                         .clip(RoundedCornerShape(16.dp))
                         .background(Color(0xFF00E8E8).copy(alpha = 0.3f))
                 )
             }
         }
 
-        Icon(
-            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-            contentDescription = "Next",
-            tint = Color.Black
-        )
+        // Next button
+        Box(
+            modifier = Modifier
+                .size(64.dp)
+                .clip(RoundedCornerShape(16.dp))
+                .background(Color(0xFF00E8E8))
+                .clickable { onClick() },
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                contentDescription = "Next",
+                tint = Color.Black
+            )
+        }
     }
 }
 
@@ -140,7 +157,7 @@ fun OnboardingPage(imageRes: Int, title: String, description: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 80.dp),
+            .padding(top = 60.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -149,22 +166,22 @@ fun OnboardingPage(imageRes: Int, title: String, description: String) {
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(260.dp)
+                .height(280.dp)
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = title,
-            fontSize = 22.sp,
+            fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
-        Spacer(modifier = Modifier.height(6.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = description,
-            fontSize = 14.sp,
+            fontSize = 16.sp,
             color = Color.Gray,
             modifier = Modifier.padding(horizontal = 24.dp),
-            lineHeight = 20.sp
+            lineHeight = 22.sp
         )
     }
 }
@@ -172,5 +189,6 @@ fun OnboardingPage(imageRes: Int, title: String, description: String) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewOnboardingScreen() {
-    OnboardingScreen()
+    val navController = rememberNavController()
+    OnboardingScreen(navController = navController)
 }

@@ -94,6 +94,7 @@ dependencies {
 
     //Accompanist Pager
     implementation ("com.google.accompanist:accompanist-pager:0.32.0")
+
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.32.0")
 
 

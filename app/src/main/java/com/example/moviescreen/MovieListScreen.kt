@@ -25,6 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import androidx. compose. material. icons. filled. *
+import androidx. compose. material. BottomNavigation
+import androidx. compose. material. BottomNavigationItem
+import androidx. compose. material3.AlertDialogDefaults. containerColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,6 +44,9 @@ fun MovieListScreen(navController: NavController) {
             movie.title.contains(searchQuery, ignoreCase = true)
         }
     }
+
+    // State for bottom navigation
+    var selectedTab by remember { mutableStateOf(0) }
 
     Scaffold(
         modifier = Modifier.background(Color(0xFF1F1D2B)),
@@ -64,7 +71,7 @@ fun MovieListScreen(navController: NavController) {
                                 placeholder = {
                                     Text(
                                         "Type title, categories, years, etc",
-                                        color = Color(0xFFA0A0A0)
+                                        color = Color(0xFFA0A0A0),
                                     )
                                 },
                                 modifier = Modifier
@@ -85,7 +92,7 @@ fun MovieListScreen(navController: NavController) {
                                         imageVector = Icons.Default.Search,
                                         contentDescription = "Search",
                                         tint = Color(0xFFA0A0A0),
-                                        modifier = Modifier.size(20.dp)
+                                        modifier = Modifier.size(20.dp),
                                     )
                                 },
                                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
@@ -104,6 +111,38 @@ fun MovieListScreen(navController: NavController) {
                     titleContentColor = Color.White
                 )
             )
+        },
+        bottomBar = {
+            BottomNavigation(
+                modifier = Modifier.background(Color(0xFF252836)),
+                // containerColor = Color(0xFF252836),
+                contentColor = Color.White
+            ) {
+                BottomNavigationItem(
+                    icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
+                    label = { Text("Home") },
+                    selected = selectedTab == 0,
+                    onClick = { selectedTab = 0 }
+                )
+                BottomNavigationItem(
+                    icon = { Icon(Icons.Default.Search, contentDescription = "Search") },
+                    label = { Text("Search") },
+                    selected = selectedTab == 1,
+                    onClick = { selectedTab = 1 }
+                )
+                BottomNavigationItem(
+                    icon = { Icon(Icons.Default.Favorite, contentDescription = "Favorites") },
+                    label = { Text("Favorites") },
+                    selected = selectedTab == 2,
+                    onClick = { selectedTab = 2 }
+                )
+                BottomNavigationItem(
+                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+                    label = { Text("Profile") },
+                    selected = selectedTab == 3,
+                    onClick = { selectedTab = 3 }
+                )
+            }
         }
     ) { paddingValues ->
         Box(

@@ -24,17 +24,11 @@ class MainActivity : ComponentActivity() {
                 // Navigation graph
                 NavHost(
                     navController = navController,
-                    startDestination = "onboarding1" // Start with onboarding1
+                    startDestination = "onboarding"
                 ) {
-                    // Onboarding screens
-                    composable("onboarding1") {
-                        OnboardingOne(navigationManager)
-                    }
-                    composable("onboarding2") {
-                        OnboardingTwo(navigationManager)
-                    }
-                    composable("onboarding3") {
-                        OnboardingThree(navigationManager)
+                    // Onboarding screen
+                    composable("onboarding") {
+                        OnboardingScreen(navController = navController)
                     }
 
                     // Home screen (MovieListScreen)
@@ -56,30 +50,13 @@ class MainActivity : ComponentActivity() {
 }
 
 class NavigationManager(private val navController: NavHostController) {
-
-    // Navigate to Onboarding1
-    fun navigateToOnboarding1() {
-        navController.navigate("onboarding1") {
+    fun navigateToOnboarding() {
+        navController.navigate("onboarding") {
             popUpTo(navController.graph.startDestinationId)
             launchSingleTop = true
         }
     }
 
-    // Navigate to Onboarding2
-    fun navigateToOnboarding2() {
-        navController.navigate("onboarding2") {
-            launchSingleTop = true
-        }
-    }
-
-    // Navigate to Onboarding3
-    fun navigateToOnboarding3() {
-        navController.navigate("onboarding3") {
-            launchSingleTop = true
-        }
-    }
-
-    // Navigate to HomeScreen
     fun navigateToHomeScreen() {
         navController.navigate("HomeScreen") {
             popUpTo(navController.graph.startDestinationId)
@@ -87,14 +64,12 @@ class NavigationManager(private val navController: NavHostController) {
         }
     }
 
-    // Navigate to Movie Detail screen
     fun navigateToMovieDetail(movieId: Int) {
         navController.navigate("movieDetail/$movieId") {
             launchSingleTop = true
         }
     }
 
-    // Go back to the previous screen
     fun goBack() {
         navController.popBackStack()
     }
