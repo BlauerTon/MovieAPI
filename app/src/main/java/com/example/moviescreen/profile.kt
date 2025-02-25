@@ -25,12 +25,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx. compose. foundation. verticalScroll
+import androidx. compose. foundation. shape. RoundedCornerShape
+import androidx.compose.material.icons.filled.Delete
+import androidx. compose. ui. graphics. Brush
+import androidx. compose. material. icons. filled. Star
+import androidx.compose.material.icons.outlined.ChevronRight
 
 
 @Composable
 fun ProfileScreen() {
     val backgroundColor = Color(0xFF1F1D2B)
-    val cardColor = Color(0xFF252836)
+    val cardColor = Color(0xFF8700)
     val textColor = Color.White
     val iconColor = Color(0xFF12CDD9)
 
@@ -44,6 +49,19 @@ fun ProfileScreen() {
                 .verticalScroll(rememberScrollState()) // Make the screen scrollable
                 .padding(16.dp)
         ) {
+
+            // Profile Title
+            Text(
+                text = "Profile",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold,
+                color = textColor,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 20.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
+
             // Profile Header
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -77,30 +95,40 @@ fun ProfileScreen() {
             // Premium Member Section
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = cardColor)
+                shape = RoundedCornerShape(12.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.Transparent)
             ) {
-                Column(
-                    modifier = Modifier.padding(16.dp)
+                Box(
+                    modifier = Modifier
+                        .background(
+                            brush = Brush.linearGradient(
+                                listOf(Color(0xFFFFA726), Color(0xFFFF7043))
+                            ),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        .padding(16.dp)
                 ) {
-                    Text(
-                        text = "Premium Member",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = textColor
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = "New movies are coming for you.",
-                        fontSize = 14.sp,
-                        color = Color.Gray
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Button(
-                        onClick = { /* Handle download action */ },
-                        modifier = Modifier.align(Alignment.End),
-                        colors = ButtonDefaults.buttonColors(containerColor = iconColor)
-                    ) {
-                        Text(text = "Download Now!", color = textColor)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = "Premium",
+                            tint = Color.White,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Column {
+                            Text(
+                                text = "Premium Member",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = textColor
+                            )
+                            Text(
+                                text = "New movies are coming for you,\nDownload Now!",
+                                fontSize = 14.sp,
+                                color = Color.White.copy(alpha = 0.8f)
+                            )
+                        }
                     }
                 }
             }
@@ -131,7 +159,7 @@ fun ProfileScreen() {
             ProfileMenuItem(icon = Icons.Default.Notifications, text = "Notification")
             ProfileMenuItem(icon = Icons.Default.Language, text = "Language")
             ProfileMenuItem(icon = Icons.Default.LocationOn, text = "Country")
-            ProfileMenuItem(icon = Icons.Default.Storage, text = "Clear Cache")
+            ProfileMenuItem(icon = Icons.Default.Delete, text = "Clear Cache")
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -201,11 +229,12 @@ fun ProfileMenuItem(icon: androidx.compose.ui.graphics.vector.ImageVector, text:
             color = Color.White,
             modifier = Modifier.weight(1f)
         )
-        Text(
-            text = ">",
-            fontSize = 16.sp,
-            color = Color(0xFF12CCD8), // Set the color to #12CCD8
-            modifier = Modifier.padding(end = 8.dp)
+        Icon(
+            imageVector = Icons.Outlined.ChevronRight,  // Use this for a standard right arrow
+            contentDescription = "Navigate",
+            tint = Color(0xFF12CCD8),
+            modifier = Modifier.size(20.dp)
+
         )
     }
 }
