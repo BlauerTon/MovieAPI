@@ -43,6 +43,11 @@ class MainActivity : ComponentActivity() {
                             MovieDetailsScreen(navController = navController, movieId = movieId.toString())
                         }
                     }
+
+                    composable("profile") {
+                        ProfileScreen()
+                    }
+
                 }
             }
         }

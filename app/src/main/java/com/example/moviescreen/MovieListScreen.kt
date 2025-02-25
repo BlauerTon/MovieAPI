@@ -30,6 +30,8 @@ import androidx. compose. material. BottomNavigation
 import androidx. compose. material. BottomNavigationItem
 import androidx. compose. material3.AlertDialogDefaults. containerColor
 import androidx. compose. ui. text. style. TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -116,10 +118,12 @@ fun MovieListScreen(navController: NavController) {
         bottomBar = {
             Scaffold(
                 bottomBar = {
-                    CustomBottomNavigation(selectedTab = selectedTab) { index ->
-                        selectedTab = index
-                    }
+                    CustomBottomNavigation(
+                        selectedTab = selectedTab,
+                        onTabSelected = { index -> selectedTab = index },
+                        navController = navController)
                 }
+
             ) { paddingValues ->
                 Box(
                     modifier = Modifier
@@ -271,7 +275,7 @@ fun MovieItem(movie: Movie, onClick: (Movie) -> Unit) {
 }
 
 @Composable
-fun CustomBottomNavigation(selectedTab: Int, onTabSelected: (Int) -> Unit) {
+fun CustomBottomNavigation(selectedTab: Int, onTabSelected: (Int) -> Unit, navController: NavController) {
     NavigationBar(
         containerColor = Color(0xFF16141F),
         tonalElevation = 0.dp
@@ -285,10 +289,14 @@ fun CustomBottomNavigation(selectedTab: Int, onTabSelected: (Int) -> Unit) {
 
         items.forEachIndexed { index, (icon, label) ->
             val isSelected = selectedTab == index
-
             NavigationBarItem(
                 selected = isSelected,
-                onClick = { onTabSelected(index) },
+                onClick = {
+                    onTabSelected(index)
+                    if (label == "Profile") {
+                        navController.navigate("profile")
+                    }
+                },
                 icon = {
                     Box(
                         modifier = Modifier
@@ -328,5 +336,13 @@ fun CustomBottomNavigation(selectedTab: Int, onTabSelected: (Int) -> Unit) {
         }
     }
 }
+
+
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewMovieList() {
+//    val navController = rememberNavController()
+//    MovieListScreen(navController = NavController)
+//}
 
 

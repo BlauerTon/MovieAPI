@@ -3,6 +3,7 @@ package com.example.moviescreen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
@@ -23,6 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx. compose. foundation. verticalScroll
+
 
 @Composable
 fun ProfileScreen() {
@@ -35,135 +38,145 @@ fun ProfileScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(backgroundColor)
-            .padding(16.dp)
     ) {
-        // Profile Header
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState()) // Make the screen scrollable
+                .padding(16.dp)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.profile_image), // Replace with your profile image
-                contentDescription = "Profile Image",
-                modifier = Modifier
-                    .size(80.dp)
-                    .clip(CircleShape)
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Column {
-                Text(
-                    text = "Tiffany",
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = textColor
-                )
-                Text(
-                    text = "Tiffanylearsey@gmail.com",
-                    fontSize = 16.sp,
-                    color = Color.Gray
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Premium Member Section
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            colors = CardDefaults.cardColors(containerColor = cardColor)
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
+            // Profile Header
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "Premium Member",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = textColor
+                Image(
+                    painter = painterResource(id = R.drawable.profile_image), // Replace with your profile image
+                    contentDescription = "Profile Image",
+                    modifier = Modifier
+                        .size(80.dp)
+                        .clip(CircleShape)
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "New movies are coming for you.",
-                    fontSize = 14.sp,
-                    color = Color.Gray
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    onClick = { /* Handle download action */ },
-                    modifier = Modifier.align(Alignment.End),
-                    colors = ButtonDefaults.buttonColors(containerColor = iconColor)
-                ) {
-                    Text(text = "Download Now!", color = textColor)
+                Spacer(modifier = Modifier.width(16.dp))
+                Column {
+                    Text(
+                        text = "Tiffany",
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = textColor
+                    )
+                    Text(
+                        text = "Tiffanylearsey@gmail.com",
+                        fontSize = 16.sp,
+                        color = Color.Gray
+                    )
                 }
             }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Premium Member Section
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = cardColor)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Text(
+                        text = "Premium Member",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = textColor
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "New movies are coming for you.",
+                        fontSize = 14.sp,
+                        color = Color.Gray
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Button(
+                        onClick = { /* Handle download action */ },
+                        modifier = Modifier.align(Alignment.End),
+                        colors = ButtonDefaults.buttonColors(containerColor = iconColor)
+                    ) {
+                        Text(text = "Download Now!", color = textColor)
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Account Settings
+            Text(
+                text = "Account",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = textColor,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            ProfileMenuItem(icon = Icons.Default.Person, text = "Member")
+            ProfileMenuItem(icon = Icons.Default.Security, text = "Change Password")
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // General Settings
+            Text(
+                text = "General",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = textColor,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            ProfileMenuItem(icon = Icons.Default.Notifications, text = "Notification")
+            ProfileMenuItem(icon = Icons.Default.Language, text = "Language")
+            ProfileMenuItem(icon = Icons.Default.LocationOn, text = "Country")
+            ProfileMenuItem(icon = Icons.Default.Storage, text = "Clear Cache")
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Legal and Policies
+            Text(
+                text = "Legal and Policies",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = textColor,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            ProfileMenuItem(icon = Icons.Default.Storage, text = "Privacy Policy")
+            ProfileMenuItem(icon = Icons.Default.Storage, text = "Terms of Service")
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Help & Feedback
+            Text(
+                text = "Help & Feedback",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = textColor,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            ProfileMenuItem(icon = Icons.Default.Notifications, text = "Help Center")
+            ProfileMenuItem(icon = Icons.Default.Language, text = "Send Feedback")
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // About Us
+            Text(
+                text = "About Us",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = textColor,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            ProfileMenuItem(icon = Icons.Default.Person, text = "About Company")
+            ProfileMenuItem(icon = Icons.Default.LocationOn, text = "Contact Us")
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Log Out Option
+            ProfileMenuItem(icon = Icons.Default.Storage, text = "Log Out")
         }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // Account Settings
-        Text(
-            text = "Account",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = textColor,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        ProfileMenuItem(icon = Icons.Default.Person, text = "Member")
-        ProfileMenuItem(icon = Icons.Default.Security, text = "Change Password")
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // General Settings
-        Text(
-            text = "General",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = textColor,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        ProfileMenuItem(icon = Icons.Default.Notifications, text = "Notification")
-        ProfileMenuItem(icon = Icons.Default.Language, text = "Language")
-        ProfileMenuItem(icon = Icons.Default.LocationOn, text = "Country")
-        ProfileMenuItem(icon = Icons.Default.Storage, text = "Clear Cache")
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Legal and Policies
-        Text(
-            text = "Legal and Policies",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = textColor,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        ProfileMenuItem(icon = Icons.Default.Storage, text = "Privacy Policy")
-        ProfileMenuItem(icon = Icons.Default.Storage, text = "Terms of Service")
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Help & Feedback
-        Text(
-            text = "Help & Feedback",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = textColor,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        ProfileMenuItem(icon = Icons.Default.Notifications, text = "Help Center")
-        ProfileMenuItem(icon = Icons.Default.Language, text = "Send Feedback")
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // About Us
-        Text(
-            text = "About Us",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = textColor,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        ProfileMenuItem(icon = Icons.Default.Person, text = "About Company")
-        ProfileMenuItem(icon = Icons.Default.LocationOn, text = "Contact Us")
     }
 }
 
@@ -188,11 +201,11 @@ fun ProfileMenuItem(icon: androidx.compose.ui.graphics.vector.ImageVector, text:
             color = Color.White,
             modifier = Modifier.weight(1f)
         )
-        Icon(
-            imageVector = Icons.Default.ArrowForward,
-            contentDescription = null,
-            tint = Color.Gray,
-            modifier = Modifier.size(20.dp)
+        Text(
+            text = ">",
+            fontSize = 16.sp,
+            color = Color(0xFF12CCD8), // Set the color to #12CCD8
+            modifier = Modifier.padding(end = 8.dp)
         )
     }
 }
