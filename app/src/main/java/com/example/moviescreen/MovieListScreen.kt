@@ -25,11 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import androidx. compose. material. icons. filled. *
-import androidx. compose. material. BottomNavigation
-import androidx. compose. material. BottomNavigationItem
-import androidx. compose. material3.AlertDialogDefaults. containerColor
-import androidx. compose. ui. text. style. TextOverflow
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 
@@ -49,7 +45,7 @@ fun MovieListScreen(navController: NavController) {
     }
 
     // State for bottom navigation
-    var selectedTab by remember { mutableStateOf(0) }
+    var selectedTab by remember { mutableStateOf(0) } // Set to 0 for "Home" (default)
 
     Scaffold(
         modifier = Modifier.background(Color(0xFF1F1D2B)),
@@ -116,27 +112,11 @@ fun MovieListScreen(navController: NavController) {
             )
         },
         bottomBar = {
-            Scaffold(
-                bottomBar = {
-                    CustomBottomNavigation(
-                        selectedTab = selectedTab,
-                        onTabSelected = { index -> selectedTab = index },
-                        navController = navController)
-                }
-
-            ) { paddingValues ->
-                Box(
-                    modifier = Modifier
-                        .padding(paddingValues)
-                        .fillMaxSize()
-                        .background(Color(0xFF1F1D2B))
-                ) {
-                    MovieList(filteredMovies) { movie ->
-                        navController.navigate("movieDetail/${movie.id}")
-                    }
-                }
-            }
-
+            CustomBottomNavigation(
+                selectedTab = selectedTab,
+                onTabSelected = { index -> selectedTab = index },
+                navController = navController
+            )
         }
     ) { paddingValues ->
         Box(
@@ -274,75 +254,10 @@ fun MovieItem(movie: Movie, onClick: (Movie) -> Unit) {
     }
 }
 
-@Composable
-fun CustomBottomNavigation(selectedTab: Int, onTabSelected: (Int) -> Unit, navController: NavController) {
-    NavigationBar(
-        containerColor = Color(0xFF16141F),
-        tonalElevation = 0.dp
-    ) {
-        val items = listOf(
-            Icons.Default.Home to "Home",
-            Icons.Default.Search to "Search",
-            Icons.Default.Download to "Downloads",
-            Icons.Default.Person to "Profile"
-        )
-
-        items.forEachIndexed { index, (icon, label) ->
-            val isSelected = selectedTab == index
-            NavigationBarItem(
-                selected = isSelected,
-                onClick = {
-                    onTabSelected(index)
-                    if (label == "Profile") {
-                        navController.navigate("profile")
-                    }
-                },
-                icon = {
-                    Box(
-                        modifier = Modifier
-                            .background(
-                                if (isSelected) Color(0xFF1E1C2A) else Color.Transparent,
-                                shape = RoundedCornerShape(20.dp)
-                            )
-                            .padding(horizontal = 12.dp, vertical = 8.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.wrapContentWidth()
-                        ) {
-                            Icon(
-                                imageVector = icon,
-                                contentDescription = label,
-                                tint = if (isSelected) Color(0xFF00D8FF) else Color(0xFF6D6C75),
-                                modifier = Modifier.size(24.dp)
-                            )
-                            if (isSelected) {
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    text = label,
-                                    color = Color(0xFF00D8FF),
-                                    style = MaterialTheme.typography.labelMedium,
-                                    maxLines = 1
-                                )
-                            }
-                        }
-                    }
-                },
-                label = { Text("") },
-                colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = Color.Transparent
-                )
-            )
-        }
-    }
-}
-
-
+// Preview commented out for brevity, but you can uncomment and adjust as needed
 //@Preview(showBackground = true)
 //@Composable
 //fun PreviewMovieList() {
 //    val navController = rememberNavController()
-//    MovieListScreen(navController = NavController)
+//    MovieListScreen(navController = navController)
 //}
-
-

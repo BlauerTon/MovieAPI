@@ -44,10 +44,10 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
+                    // Profile screen
                     composable("profile") {
-                        ProfileScreen()
+                        ProfileScreen(navController = navController) // Pass the navController here
                     }
-
                 }
             }
         }
@@ -71,6 +71,12 @@ class NavigationManager(private val navController: NavHostController) {
 
     fun navigateToMovieDetail(movieId: Int) {
         navController.navigate("movieDetail/$movieId") {
+            launchSingleTop = true
+        }
+    }
+
+    fun navigateToProfile() {
+        navController.navigate("profile") {
             launchSingleTop = true
         }
     }
