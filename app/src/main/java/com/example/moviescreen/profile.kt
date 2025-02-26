@@ -1,43 +1,36 @@
 package com.example.moviescreen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Security
-import androidx.compose.material.icons.filled.Storage
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.ChevronRight
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx. compose. foundation. verticalScroll
-import androidx. compose. foundation. shape. RoundedCornerShape
-import androidx.compose.material.icons.filled.Delete
-import androidx. compose. ui. graphics. Brush
-import androidx. compose. material. icons. filled. Star
-import androidx.compose.material.icons.outlined.ChevronRight
-
 
 @Composable
 fun ProfileScreen() {
-    val backgroundColor = Color(0xFF1F1D2B)
-    val cardColor = Color(0xFF8700)
+    val backgroundColor = Color(0xFF1F1D2B) // Dark background
     val textColor = Color.White
-    val iconColor = Color(0xFF12CDD9)
+    val iconColor = Color(0xFF12CDD9) // Cyan accent
+    val premiumGradient = listOf(Color(0xFFFFA726), Color(0xFFFF7043)) // Orange gradient for premium
 
     Column(
         modifier = Modifier
@@ -46,11 +39,10 @@ fun ProfileScreen() {
     ) {
         Column(
             modifier = Modifier
-                .verticalScroll(rememberScrollState()) // Make the screen scrollable
-                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp)
         ) {
 
-            // Profile Title
             Text(
                 text = "Profile",
                 fontSize = 22.sp,
@@ -58,52 +50,61 @@ fun ProfileScreen() {
                 color = textColor,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 20.dp)
+                    .padding(vertical = 16.dp)
                     .align(Alignment.CenterHorizontally)
             )
 
-            // Profile Header
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.profile_image), // Replace with your profile image
+                    painter = painterResource(id = R.drawable.profile_image),
                     contentDescription = "Profile Image",
                     modifier = Modifier
-                        .size(80.dp)
+                        .size(60.dp)
                         .clip(CircleShape)
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Column {
                     Text(
                         text = "Tiffany",
-                        fontSize = 24.sp,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = textColor
                     )
                     Text(
                         text = "Tiffanylearsey@gmail.com",
-                        fontSize = 16.sp,
+                        fontSize = 14.sp,
                         color = Color.Gray
                     )
                 }
+                Spacer(modifier = Modifier.width(8.dp))
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    contentDescription = "Edit Profile",
+                    tint = iconColor,
+                    modifier = Modifier.size(24.dp)
+                )
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            // Premium Member Section
+
             Card(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.Transparent)
             ) {
                 Box(
                     modifier = Modifier
+                        .fillMaxWidth()
                         .background(
-                            brush = Brush.linearGradient(
-                                listOf(Color(0xFFFFA726), Color(0xFFFF7043))
-                            ),
+                            brush = Brush.linearGradient(colors = premiumGradient),
                             shape = RoundedCornerShape(12.dp)
                         )
                         .padding(16.dp)
@@ -121,7 +122,7 @@ fun ProfileScreen() {
                                 text = "Premium Member",
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = textColor
+                                color = Color.White
                             )
                             Text(
                                 text = "New movies are coming for you,\nDownload Now!",
@@ -138,20 +139,20 @@ fun ProfileScreen() {
             // Account Settings
             Text(
                 text = "Account",
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = textColor,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             ProfileMenuItem(icon = Icons.Default.Person, text = "Member")
-            ProfileMenuItem(icon = Icons.Default.Security, text = "Change Password")
+            ProfileMenuItem(icon = Icons.Default.Lock, text = "Change Password")
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // General Settings
             Text(
                 text = "General",
-                fontSize = 20.sp,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = textColor,
                 modifier = Modifier.padding(bottom = 8.dp)
@@ -163,47 +164,38 @@ fun ProfileScreen() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Legal and Policies
+            // More Section
             Text(
-                text = "Legal and Policies",
-                fontSize = 20.sp,
+                text = "More",
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = textColor,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
-            ProfileMenuItem(icon = Icons.Default.Storage, text = "Privacy Policy")
-            ProfileMenuItem(icon = Icons.Default.Storage, text = "Terms of Service")
+            ProfileMenuItem(icon = Icons.Default.Gavel, text = "Legal and Policies")
+            ProfileMenuItem(icon = Icons.Default.Help, text = "Help & Feedback")
+            ProfileMenuItem(icon = Icons.Default.Info, text = "About Us")
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-            // Help & Feedback
-            Text(
-                text = "Help & Feedback",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = textColor,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            ProfileMenuItem(icon = Icons.Default.Notifications, text = "Help Center")
-            ProfileMenuItem(icon = Icons.Default.Language, text = "Send Feedback")
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // About Us
-            Text(
-                text = "About Us",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = textColor,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-            ProfileMenuItem(icon = Icons.Default.Person, text = "About Company")
-            ProfileMenuItem(icon = Icons.Default.LocationOn, text = "Contact Us")
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Log Out Option
-            ProfileMenuItem(icon = Icons.Default.Storage, text = "Log Out")
+            // Log Out Button
+            OutlinedButton(
+                onClick = { /* Handle log out */ },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(70.dp)
+                    .padding(bottom = 16.dp),
+                shape = RoundedCornerShape(24.dp),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = iconColor),
+                border = BorderStroke(2.dp, iconColor)
+            ) {
+                Text(
+                    text = "Log Out",
+                    fontSize = 16.sp,
+                    color = iconColor,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }
@@ -213,7 +205,7 @@ fun ProfileMenuItem(icon: androidx.compose.ui.graphics.vector.ImageVector, text:
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .padding(vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
@@ -230,11 +222,10 @@ fun ProfileMenuItem(icon: androidx.compose.ui.graphics.vector.ImageVector, text:
             modifier = Modifier.weight(1f)
         )
         Icon(
-            imageVector = Icons.Outlined.ChevronRight,  // Use this for a standard right arrow
+            imageVector = Icons.Outlined.ChevronRight,
             contentDescription = "Navigate",
-            tint = Color(0xFF12CCD8),
-            modifier = Modifier.size(20.dp)
-
+            tint = Color(0xFF12CDD9),
+            modifier = Modifier.size(24.dp)
         )
     }
 }
