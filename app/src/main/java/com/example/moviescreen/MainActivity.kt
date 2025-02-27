@@ -26,14 +26,22 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     startDestination = "onboarding"
                 ) {
-                    // Onboarding screen
+                    // Home screen
+                    composable("HomeScreen") {
+                        HomeScreen(navController = navController)
+                    }
+
                     composable("onboarding") {
                         OnboardingScreen(navController = navController)
                     }
 
-                    // Home screen (MovieListScreen)
-                    composable("HomeScreen") {
+                    composable("search") {
                         MovieListScreen(navController = navController)
+                    }
+
+                    // Downloads screen
+                    composable("downloads") {
+                        DownloadsScreen(navController = navController)
                     }
 
                     // Movie detail screen
@@ -46,7 +54,7 @@ class MainActivity : ComponentActivity() {
 
                     // Profile screen
                     composable("profile") {
-                        ProfileScreen(navController = navController) // Pass the navController here
+                        ProfileScreen(navController = navController)
                     }
                 }
             }
@@ -55,6 +63,16 @@ class MainActivity : ComponentActivity() {
 }
 
 class NavigationManager(private val navController: NavHostController) {
+    fun navigateToHomeScreen() {
+        navController.navigate("HomeScreen") {
+            popUpTo(navController.graph.startDestinationId) {
+                saveState = true
+            }
+            launchSingleTop = true
+            restoreState = true
+        }
+    }
+
     fun navigateToOnboarding() {
         navController.navigate("onboarding") {
             popUpTo(navController.graph.startDestinationId)
@@ -62,9 +80,14 @@ class NavigationManager(private val navController: NavHostController) {
         }
     }
 
-    fun navigateToHomeScreen() {
-        navController.navigate("HomeScreen") {
-            popUpTo(navController.graph.startDestinationId)
+    fun navigateToSearch() {
+        navController.navigate("search") {
+            launchSingleTop = true
+        }
+    }
+
+    fun navigateToDownloads() {
+        navController.navigate("downloads") {
             launchSingleTop = true
         }
     }

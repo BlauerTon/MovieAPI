@@ -45,7 +45,7 @@ fun MovieListScreen(navController: NavController) {
     }
 
     // State for bottom navigation
-    var selectedTab by remember { mutableStateOf(0) } // Set to 0 for "Home" (default)
+    var selectedTab by remember { mutableStateOf(1) } // Set to 1 for "Search"
 
     Scaffold(
         modifier = Modifier.background(Color(0xFF1F1D2B)),
@@ -114,7 +114,18 @@ fun MovieListScreen(navController: NavController) {
         bottomBar = {
             CustomBottomNavigation(
                 selectedTab = selectedTab,
-                onTabSelected = { index -> selectedTab = index },
+                onTabSelected = { index ->
+                    selectedTab = index
+                    when (index) {
+                        0 -> navController.navigate("HomeScreen") {
+                            popUpTo("HomeScreen") { saveState = true }
+                            launchSingleTop = true
+                        }
+                        1 -> navController.navigate("search")
+                        2 -> navController.navigate("downloads")
+                        3 -> navController.navigate("profile")
+                    }
+                },
                 navController = navController
             )
         }

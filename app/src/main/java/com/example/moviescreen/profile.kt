@@ -34,8 +34,7 @@ fun ProfileScreen(navController: NavController) {
     val iconColor = Color(0xFF12CDD9) // Cyan accent
     val premiumGradient = listOf(Color(0xFFFFA726), Color(0xFFFF7043)) // Orange gradient for premium
 
-    // Explicitly type the selectedTab as MutableState<Int>
-    var selectedTab by remember { mutableStateOf(3) } // Set to 3 for "Profile" (index starts at 0: Home, Search, Downloads, Profile)
+    var selectedTab by remember { mutableStateOf(3) } // Set to 3 for "Profile"
 
     Scaffold(
         modifier = Modifier.background(backgroundColor),
@@ -46,7 +45,10 @@ fun ProfileScreen(navController: NavController) {
                 onTabSelected = { index ->
                     selectedTab = index
                     when (index) {
-                        0 -> navController.navigate("home")
+                        0 -> navController.navigate("HomeScreen") {
+                            popUpTo("HomeScreen") { saveState = true }
+                            launchSingleTop = true
+                        }
                         1 -> navController.navigate("search")
                         2 -> navController.navigate("downloads")
                         3 -> navController.navigate("profile")
@@ -64,11 +66,11 @@ fun ProfileScreen(navController: NavController) {
         ) {
             Column(
                 modifier = Modifier
-                    .weight(1f) // Allow the column to take remaining space, leaving room for the bottom navigation
+                    .weight(1f)
                     .verticalScroll(rememberScrollState())
                     .padding(horizontal = 16.dp)
             ) {
-                // Profile Title (Centered)
+
                 Text(
                     text = "Profile",
                     fontSize = 22.sp,
@@ -80,7 +82,6 @@ fun ProfileScreen(navController: NavController) {
                         .align(Alignment.CenterHorizontally)
                 )
 
-                // Profile Header with Single Pen Icon at the End
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -119,7 +120,6 @@ fun ProfileScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Premium Member Section (Full width, no extra padding)
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()

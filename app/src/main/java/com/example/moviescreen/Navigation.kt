@@ -1,6 +1,5 @@
 package com.example.moviescreen
 
-
 import androidx.compose.foundation.background
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Download
@@ -37,8 +36,14 @@ fun CustomBottomNavigation(selectedTab: Int, onTabSelected: (Int) -> Unit, navCo
                 selected = isSelected,
                 onClick = {
                     onTabSelected(index)
-                    if (label == "Profile") {
-                        navController.navigate("profile")
+                    when (label) {
+                        "Home" -> navController.navigate("HomeScreen") {
+                            popUpTo("HomeScreen") { saveState = true }
+                            launchSingleTop = true
+                        }
+                        "Search" -> navController.navigate("search")
+                        "Downloads" -> navController.navigate("downloads")
+                        "Profile" -> navController.navigate("profile")
                     }
                 },
                 icon = {
